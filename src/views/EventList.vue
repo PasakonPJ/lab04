@@ -9,7 +9,7 @@
 // @ is an alias to /src
 import EventCard from '@/components/EventCard.vue'
 import EventService from '@/services/EventService.js'
-// import axios from 'axios'
+
 export default {
   name: 'EventList',
   components: {
