@@ -35,6 +35,10 @@ export default {
     page: {
       type: Number,
       required: true
+    },
+     perpage: {
+      type: Number,
+      required: true
     }
   },
   components: {
@@ -48,7 +52,7 @@ export default {
   },
   created() {
     watchEffect(() => {
-      EventService.getEvents(2, this.page)
+      EventService.getEvents(this.perpage, this.page)
         .then((response) => {
           console.log(response)
           this.events = response.data
@@ -62,7 +66,7 @@ export default {
   computed: {
     hasNextPage() {
       //First, calculate total pages
-      let totalPages = Math.ceil(this.totalEvents / 2) // 2 is events per page
+      let totalPages = Math.ceil(this.totalEvents / 3) // 2 is events per page
       //then check to see if the current page is less than the total pages.
       return this.page < totalPages
     }
