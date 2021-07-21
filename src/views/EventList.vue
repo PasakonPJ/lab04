@@ -1,12 +1,12 @@
 <template>
   <span>
-  <h1>Events For Good</h1> 
-  <select id="selectedpage" v-model.number="selectedpage">
-    <option>1</option>
-    <option>2</option>
-    <option>3</option>
-    <option>4</option>
-  </select>
+    <select id="selectedpage" v-model.number="selectedpage">
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+    </select>
+    <h1>Events For Good</h1>
   </span>
 
   <div class="events">
@@ -18,7 +18,7 @@
         rel="prev"
         v-if="page != 1"
       >
-        Prev page 
+        Prev page
       </router-link>
 
       <router-link
@@ -104,7 +104,7 @@ export default {
 #page-next {
   text-align: right;
 }
-#selectedpage{
+#selectedpage {
   flex: 1;
   text-align: left;
   flex-direction: column;
