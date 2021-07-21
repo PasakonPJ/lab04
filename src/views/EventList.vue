@@ -1,5 +1,14 @@
 <template>
-  <h1>Events For Good</h1>
+  <span>
+  <h1>Events For Good</h1> 
+  <select id="selectedpage" v-model.number="selectedpage">
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+  </select>
+  </span>
+
   <div class="events">
     <EventCard v-for="event in events" :key="event.id" :event="event" />
     <div class="pagination">
@@ -9,7 +18,7 @@
         rel="prev"
         v-if="page != 1"
       >
-        Prev page
+        Prev page 
       </router-link>
 
       <router-link
@@ -36,7 +45,7 @@ export default {
       type: Number,
       required: true
     },
-     perpage: {
+    perpage: {
       type: Number,
       required: true
     }
@@ -47,12 +56,13 @@ export default {
   data() {
     return {
       events: null,
-      totalEvents: 0 //<-- Added this to store totalEvents
+      totalEvents: 0, //<-- Added this to store totalEvents
+      selectedpage: this.perpage
     }
   },
   created() {
     watchEffect(() => {
-      EventService.getEvents(this.perpage, this.page)
+      EventService.getEvents(this.selectedpage, this.page)
         .then((response) => {
           console.log(response)
           this.events = response.data
@@ -66,7 +76,7 @@ export default {
   computed: {
     hasNextPage() {
       //First, calculate total pages
-      let totalPages = Math.ceil(this.totalEvents / 3) // 2 is events per page
+      let totalPages = Math.ceil(this.totalEvents / this.selectedpage) // 2 is events per page
       //then check to see if the current page is less than the total pages.
       return this.page < totalPages
     }
@@ -93,5 +103,10 @@ export default {
 }
 #page-next {
   text-align: right;
+}
+#selectedpage{
+  flex: 1;
+  text-align: left;
+  flex-direction: column;
 }
 </style>
