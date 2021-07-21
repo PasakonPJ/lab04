@@ -3,16 +3,19 @@
   <div class="events">
     <EventCard v-for="event in events" :key="event.id" :event="event" />
     <router-link
-    :to ="{name: 'EventList',query: {page: page -1} }"
-    rel="prev"
-    v-if="page !=1"
+      :to="{ name: 'EventList', query: { page: page - 1 } }"
+      rel="prev"
+      v-if="page != 1"
     >
-    Prev page
+      Prev page
     </router-link>
-    <router-link :to="{name: 'EventList',query: {page: page+1 }}"
-    rel = "next"
+    
+    <router-link
+      :to="{ name: 'EventList', query: { page: page + 1 } }"
+      rel="next"
+      v-if="hasNextPage"
     >
-    Next
+      Next page
     </router-link>
   </div>
 </template>
@@ -24,7 +27,7 @@ import EventService from '@/services/EventService.js'
 import { watchEffect } from '@vue/runtime-core'
 export default {
   name: 'EventList',
-  props:{
+  props: {
     page: {
       type: Number,
       required: true
@@ -35,20 +38,30 @@ export default {
   },
   data() {
     return {
-      events: null
+      events: null,
+      totalEvents: 0 //<-- Added this to store totalEvents
     }
   },
   created() {
-  watchEffect(()=>{
-      EventService.getEvents(2,this.page)
-      .then((response) => {
-        console.log(response)
-        this.events = response.data
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  })
+    watchEffect(() => {
+      EventService.getEvents(2, this.page)
+        .then((response) => {
+          console.log(response)
+          this.events = response.data
+          this.totalEvents = response.headers['x-total-count'] //<-- Store it
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    })
+  },
+  computed: {
+    hasNextPage() {
+      //First, calculate total pages
+      let totalPages = Math.ceil(this.totalEvents / 2) // 2 is events per page
+      //then check to see if the current page is less than the total pages.
+      return this.page < totalPages
+    }
   }
 }
 </script>
