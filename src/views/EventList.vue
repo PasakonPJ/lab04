@@ -11,8 +11,14 @@ import EventCard from '@/components/EventCard.vue'
 import EventService from '@/services/EventService.js'
 export default {
   name: 'EventList',
+  props:{
+    page: {
+      type: Number,
+      required: true
+    }
+  },
   components: {
-    EventCard // register it as a child component
+    EventCard
   },
   data() {
     return {
@@ -20,7 +26,7 @@ export default {
     }
   },
   created() {
-    EventService.getEvents()
+    EventService.getEvents(3,this.page)
       .then((response) => {
         console.log(response)
         this.events = response.data
