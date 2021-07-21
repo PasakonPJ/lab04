@@ -1,7 +1,8 @@
 <template>
-  <router-link class="event-link"
-  to="{name: 'EventDetails'}, 
-  params: {id: event.id}}">
+  <router-link
+    class="event-link"
+    :to="{name: 'EventDetails', params: {id: events.id}}"
+  >
     <div class="event-card">
       <span>@{{ event.time }} on {{ event.date }}</span>
       <h4>{{ event.title }}</h4>
@@ -29,7 +30,7 @@ export default {
   border: 1px solid #39495c;
   margin-bottom: 18px;
 }
-.event-link{
+.event-link {
   color: green;
   text-decoration: none;
 }

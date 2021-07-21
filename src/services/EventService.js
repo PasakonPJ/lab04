@@ -13,7 +13,7 @@ export default {
   getEvents() {
     return apiClient.get('/events')
   },
-  getEvent(){
-    return apiClient.get('/events/'+id)
+  getEvent() {
+    return apiClient.get('/events/' + id)
   }
 }
