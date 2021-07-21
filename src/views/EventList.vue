@@ -9,7 +9,6 @@
 // @ is an alias to /src
 import EventCard from '@/components/EventCard.vue'
 import EventService from '@/services/EventService.js'
-// import axios from 'axios'
 export default {
   name: 'EventList',
   components: {
@@ -23,6 +22,7 @@ export default {
   created() {
     EventService.getEvents()
       .then((response) => {
+        console.log(response)
         this.events = response.data
       })
       .catch((error) => {

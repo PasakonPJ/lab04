@@ -6,6 +6,7 @@
   </div>
 </template>
 <script>
+import EventService from '@/services/EventService.js'
 export default {
   props: ['id'],
   data() {
@@ -16,6 +17,7 @@ export default {
   created() {
     EventService.getEvent(this.id)
       .then((response) => {
+        console.log( response)
         this.event = response.data
       })
       .catch((error) => {
