@@ -7,10 +7,10 @@
 </template>
 <script>
 export default {
+  props: ['id'],
   data() {
     return {
-      event: null,
-      id: 123
+      event: null
     }
   },
   created() {
