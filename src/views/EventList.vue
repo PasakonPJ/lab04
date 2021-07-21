@@ -2,6 +2,18 @@
   <h1>Events For Good</h1>
   <div class="events">
     <EventCard v-for="event in events" :key="event.id" :event="event" />
+    <router-link
+    :to ="{name: 'EventList',query: {page: page -1} }"
+    rel="prev"
+    v-if="page !=1"
+    >
+    Prev page
+    </router-link>
+    <router-link :to="{name: 'EventList',query: {page: page+1 }}"
+    rel = "next"
+    >
+    Next
+    </router-link>
   </div>
 </template>
 
@@ -26,7 +38,7 @@ export default {
     }
   },
   created() {
-    EventService.getEvents(3,this.page)
+    EventService.getEvents(2,this.page)
       .then((response) => {
         console.log(response)
         this.events = response.data
